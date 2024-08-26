@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/egoFragment"
+        android:icon="@drawable/ic_stop"
+        android:title="Ego" />
+
+    <item
+        android:id="@+id/additionFragment"
+        android:icon="@drawable/ic_addition"
+        android:title="Addition" />
+
+    <item
+        android:id="@+id/subtractionFragment"
+        android:icon="@drawable/ic_remove"
+        android:title="Subtraction" />
+
+    <item
+        android:id="@+id/multiplicationFragment"
+        android:icon="@drawable/ic_close"
+        android:title="Multiplication" />
+
+    <item
+        android:id="@+id/divisionFragment"
+        android:icon="@drawable/ic_check"
+        android:title="Division" />
+
+
+
+</menu>

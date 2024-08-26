@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">KekodKotlinFirstProject</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ego_fragment">EGO Fragment</string>
+    <string name="addition_screen">Addition Fragment</string>
+    <string name="subtraction_screen">Subtraction Fragment</string>"
+    <string name="multiplication_screen">Multiplication Fragment</string>
+    <string name="division_screen">Division Fragment</string>
+    <string name="modulo_screen">Modulo Fragment</string>
+
+</resources>
