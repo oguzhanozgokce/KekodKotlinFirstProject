@@ -20,6 +20,9 @@ class EgoViewModel : ViewModel() {
     private val _uiState = MutableLiveData(EgoUiState())
     val uiState: LiveData<EgoUiState> = _uiState
 
+    private val _addedItemsOrder = MutableLiveData<List<NavigationItem>>(emptyList())
+    val addedItemsOrder: LiveData<List<NavigationItem>> = _addedItemsOrder
+
     fun onEgoSwitchChanged(isChecked: Boolean) {
         val newState = _uiState.value?.copy(isEgoChecked = isChecked)
         _uiState.value = newState
@@ -42,6 +45,7 @@ class EgoViewModel : ViewModel() {
             else -> _uiState.value
         }
         _uiState.value = newState
+        updateAddedItemsOrder(switchId, isChecked)
     }
 
     private fun resetOtherSwitches() {
@@ -52,9 +56,33 @@ class EgoViewModel : ViewModel() {
             isDivisionChecked = false,
             isModuloChecked = false
         )
+        _addedItemsOrder.value = emptyList()
     }
 
     private fun setOtherSwitchesEnabled(isEnabled: Boolean) {
         _uiState.value = _uiState.value?.copy(areOtherSwitchesEnabled = isEnabled)
+    }
+
+    private fun updateAddedItemsOrder(switchId: Int, isChecked: Boolean) {
+        val currentOrder = _addedItemsOrder.value?.toMutableList() ?: mutableListOf()
+        val item = when (switchId) {
+            R.id.switch_addition -> NavigationItem.ADDITION
+            R.id.switch_subtraction -> NavigationItem.SUBTRACTION
+            R.id.switch_multiplication -> NavigationItem.MULTIPLICATION
+            R.id.switch_division -> NavigationItem.DIVISION
+            R.id.switch_modulo -> NavigationItem.MODULO
+            else -> null
+        }
+
+        if (item != null) {
+            if (isChecked) {
+                if (!currentOrder.contains(item)) {
+                    currentOrder.add(item)
+                }
+            } else {
+                currentOrder.remove(item)
+            }
+            _addedItemsOrder.value = currentOrder
+        }
     }
 }

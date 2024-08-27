@@ -12,9 +12,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.oguzhanozgokce.kekodkotlinfirstproject.MainActivity
 import com.oguzhanozgokce.kekodkotlinfirstproject.R
+import com.oguzhanozgokce.kekodkotlinfirstproject.common.gone
 import com.oguzhanozgokce.kekodkotlinfirstproject.databinding.FragmentEgoBinding
-import com.oguzhanozgokce.kekodkotlinfirstproject.ui.resetSwitches
-import com.oguzhanozgokce.kekodkotlinfirstproject.ui.setEnabled
+import com.oguzhanozgokce.kekodkotlinfirstproject.common.setEnabled
+import com.oguzhanozgokce.kekodkotlinfirstproject.common.visible
 
 
 class EgoFragment : Fragment() {
@@ -32,7 +33,7 @@ class EgoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
        _binding = FragmentEgoBinding.inflate(inflater, container, false)
         val view = binding.root
         bottomNavigationView = (activity as MainActivity).getBottomNavigationView()
@@ -45,14 +46,12 @@ class EgoFragment : Fragment() {
         viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
             binding.switchEgo.isChecked = uiState.isEgoChecked
             setSwitchColors(uiState.isEgoChecked, binding.switchEgo)
-
-            binding.switchAddition.isChecked = uiState.isAdditionChecked
-            binding.switchSubtraction.isChecked = uiState.isSubtractionChecked
-            binding.switchMultiplication.isChecked = uiState.isMultiplicationChecked
-            binding.switchDivision.isChecked = uiState.isDivisionChecked
-            binding.switchModulo.isChecked = uiState.isModuloChecked
-
             getOtherSwitches().setEnabled(!uiState.isEgoChecked)
+            toggleBottomNavVisibility(uiState.isEgoChecked)
+        }
+
+        viewModel.addedItemsOrder.observe(viewLifecycleOwner) { addedItems ->
+            updateBottomNavigationView(addedItems)
         }
 
         binding.switchEgo.setOnCheckedChangeListener { _, isChecked ->
@@ -63,10 +62,6 @@ class EgoFragment : Fragment() {
             switch.setOnCheckedChangeListener { _, isChecked ->
                 viewModel.onOtherSwitchChanged(switch.id, isChecked)
             }
-        }
-
-        viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
-            updateBottomNavigationView(uiState)
         }
     }
 
@@ -80,31 +75,33 @@ class EgoFragment : Fragment() {
         )
     }
 
-    private fun updateBottomNavigationView(uiState: EgoUiState) {
+
+    private fun updateBottomNavigationView(addedItemsOrder: List<NavigationItem>) {
         val menu = bottomNavigationView.menu
         menu.clear()
 
         val egoItem = NavigationItem.EGO
         menu.add(ZERO, egoItem.fragmentId, ZERO, "Ego").setIcon(egoItem.iconRes)
 
-        val itemsToAdd = listOf(
-            NavigationItem.ADDITION to uiState.isAdditionChecked,
-            NavigationItem.SUBTRACTION to uiState.isSubtractionChecked,
-            NavigationItem.MULTIPLICATION to uiState.isMultiplicationChecked,
-            NavigationItem.DIVISION to uiState.isDivisionChecked,
-            NavigationItem.MODULO to uiState.isModuloChecked
-        )
-
         var addedItemCount = ONE
         var toastShown = false
-        itemsToAdd.forEachIndexed { index, (item, isChecked) ->
-            if (isChecked && addedItemCount < FIVE) {
-                menu.add(ZERO, item.fragmentId, index + ONE, item.name).setIcon(item.iconRes)
+
+        addedItemsOrder.forEach { item ->
+            if (addedItemCount < FIVE) {
+                menu.add(ZERO, item.fragmentId, addedItemCount, item.name).setIcon(item.iconRes)
                 addedItemCount++
-            } else if (isChecked && !toastShown) {
+            } else if (!toastShown) {
                 Toast.makeText(requireContext(), getString(R.string.limit_five), Toast.LENGTH_SHORT).show()
                 toastShown = true
             }
+        }
+    }
+
+    private fun toggleBottomNavVisibility(isEgoChecked: Boolean) {
+        if (isEgoChecked) {
+            bottomNavigationView.gone()
+        } else {
+            bottomNavigationView.visible()
         }
     }
 
