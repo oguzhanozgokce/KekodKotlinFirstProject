@@ -30,5 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
+
+    }
+    fun getBottomNavigationView(): BottomNavigationView {
+        return binding.bottomNavigationView
     }
 }

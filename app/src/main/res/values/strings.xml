@@ -8,5 +8,6 @@
     <string name="multiplication_screen">Multiplication Fragment</string>
     <string name="division_screen">Division Fragment</string>
     <string name="modulo_screen">Modulo Fragment</string>
+    <string name="limit_five">You can only select up to 5 operations</string>
 
 </resources>
