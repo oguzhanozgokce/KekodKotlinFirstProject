@@ -46,8 +46,18 @@ class EgoFragment : Fragment() {
         viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
             binding.switchEgo.isChecked = uiState.isEgoChecked
             setSwitchColors(uiState.isEgoChecked, binding.switchEgo)
+            getOtherSwitches().forEachIndexed { index, switch ->
+                switch.isChecked = when (index) {
+                    0 -> uiState.isAdditionChecked
+                    1 -> uiState.isSubtractionChecked
+                    2 -> uiState.isMultiplicationChecked
+                    3 -> uiState.isDivisionChecked
+                    4 -> uiState.isModuloChecked
+                    else -> false
+                }
+            }
             getOtherSwitches().setEnabled(!uiState.isEgoChecked)
-            toggleBottomNavVisibility(uiState.isEgoChecked)
+//            toggleBottomNavVisibility(uiState.isEgoChecked)
         }
 
         viewModel.addedItemsOrder.observe(viewLifecycleOwner) { addedItems ->
@@ -66,15 +76,16 @@ class EgoFragment : Fragment() {
     }
 
     private fun getOtherSwitches(): List<SwitchMaterial> {
-        return listOf(
-            binding.switchAddition,
-            binding.switchSubtraction,
-            binding.switchMultiplication,
-            binding.switchDivision,
-            binding.switchModulo
-        )
+        return with(binding){
+            listOf(
+                switchAddition,
+                switchSubtraction,
+                switchMultiplication,
+                switchDivision,
+                switchModulo,
+            )
+        }
     }
-
 
     private fun updateBottomNavigationView(addedItemsOrder: List<NavigationItem>) {
         val menu = bottomNavigationView.menu

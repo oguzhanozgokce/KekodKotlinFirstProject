@@ -5,16 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.oguzhanozgokce.kekodkotlinfirstproject.R
 
-data class EgoUiState(
-    val isEgoChecked: Boolean = true,
-    val isAdditionChecked: Boolean = false,
-    val isSubtractionChecked: Boolean = false,
-    val isMultiplicationChecked: Boolean = false,
-    val isDivisionChecked: Boolean = false,
-    val isModuloChecked: Boolean = false,
-    val areOtherSwitchesEnabled: Boolean = false
-)
-
 class EgoViewModel : ViewModel() {
 
     private val _uiState = MutableLiveData(EgoUiState())
@@ -86,3 +76,13 @@ class EgoViewModel : ViewModel() {
         }
     }
 }
+
+data class EgoUiState(
+    val isEgoChecked: Boolean = true,
+    val isAdditionChecked: Boolean = false,
+    val isSubtractionChecked: Boolean = false,
+    val isMultiplicationChecked: Boolean = false,
+    val isDivisionChecked: Boolean = false,
+    val isModuloChecked: Boolean = false,
+    val areOtherSwitchesEnabled: Boolean = false
+)

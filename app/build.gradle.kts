@@ -53,7 +53,10 @@ dependencies {
     //navigation
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
-
+    //lottie
+    implementation(libs.lottie)
+    //test
+    testImplementation(libs.androidx.core.testing)
 
 
 }
