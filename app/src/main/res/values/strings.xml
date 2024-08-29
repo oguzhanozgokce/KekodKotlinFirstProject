@@ -15,5 +15,11 @@
     <string name="division">Division</string>
     <string name="modulo">Modulo</string>
     <string name="ego">Ego</string>
+    <string name="enter_first_number">NUM 1</string>
+    <string name="addition_symbol">addition icon</string>
+    <string name="enter_second_number">NUM 2</string>
+    <string name="result"> </string>
+    <string name="operation_symbol">operation_symbol</string>
+    <string name="equal_symbol">Equal symbol</string>
 
 </resources>
