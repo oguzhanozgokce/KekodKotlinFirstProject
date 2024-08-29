@@ -9,5 +9,11 @@
     <string name="division_screen">Division Fragment</string>
     <string name="modulo_screen">Modulo Fragment</string>
     <string name="limit_five">You can only select up to 5 operations</string>
+    <string name="addition">Addition</string>
+    <string name="subtraction">Subtraction</string>
+    <string name="multiplication">Multiplication</string>
+    <string name="division">Division</string>
+    <string name="modulo">Modulo</string>
+    <string name="ego">Ego</string>
 
 </resources>
