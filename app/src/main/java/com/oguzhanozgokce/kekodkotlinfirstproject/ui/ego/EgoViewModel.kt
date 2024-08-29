@@ -26,17 +26,29 @@ class EgoViewModel : ViewModel() {
     }
 
     fun onOtherSwitchChanged(switchId: Int, isChecked: Boolean) {
-        val newState = when (switchId) {
-            R.id.switch_addition -> _uiState.value?.copy(isAdditionChecked = isChecked)
-            R.id.switch_subtraction -> _uiState.value?.copy(isSubtractionChecked = isChecked)
-            R.id.switch_multiplication -> _uiState.value?.copy(isMultiplicationChecked = isChecked)
-            R.id.switch_division -> _uiState.value?.copy(isDivisionChecked = isChecked)
-            R.id.switch_modulo -> _uiState.value?.copy(isModuloChecked = isChecked)
-            else -> _uiState.value
+        val currentState = when (switchId) {
+            R.id.switch_addition -> _uiState.value?.isAdditionChecked
+            R.id.switch_subtraction -> _uiState.value?.isSubtractionChecked
+            R.id.switch_multiplication -> _uiState.value?.isMultiplicationChecked
+            R.id.switch_division -> _uiState.value?.isDivisionChecked
+            R.id.switch_modulo -> _uiState.value?.isModuloChecked
+            else -> null
         }
-        _uiState.value = newState
-        updateAddedItemsOrder(switchId, isChecked)
+
+        if (currentState != isChecked) {
+            val newState = when (switchId) {
+                R.id.switch_addition -> _uiState.value?.copy(isAdditionChecked = isChecked)
+                R.id.switch_subtraction -> _uiState.value?.copy(isSubtractionChecked = isChecked)
+                R.id.switch_multiplication -> _uiState.value?.copy(isMultiplicationChecked = isChecked)
+                R.id.switch_division -> _uiState.value?.copy(isDivisionChecked = isChecked)
+                R.id.switch_modulo -> _uiState.value?.copy(isModuloChecked = isChecked)
+                else -> _uiState.value
+            }
+            _uiState.value = newState
+            updateAddedItemsOrder(switchId, isChecked)
+        }
     }
+
 
     private fun resetOtherSwitches() {
         _uiState.value = _uiState.value?.copy(

@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -17,18 +19,10 @@ import com.oguzhanozgokce.kekodkotlinfirstproject.databinding.FragmentEgoBinding
 import com.oguzhanozgokce.kekodkotlinfirstproject.common.setEnabled
 import com.oguzhanozgokce.kekodkotlinfirstproject.common.visible
 
-
 class EgoFragment : Fragment() {
     private var _binding: FragmentEgoBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: EgoViewModel by viewModels()
-    private lateinit var bottomNavigationView: BottomNavigationView
-
-    companion object {
-        const val ZERO = 0
-        const val ONE = 1
-        const val FIVE = 5
-    }
+    private val viewModel: EgoViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +30,6 @@ class EgoFragment : Fragment() {
     ): View {
        _binding = FragmentEgoBinding.inflate(inflater, container, false)
         val view = binding.root
-        bottomNavigationView = (activity as MainActivity).getBottomNavigationView()
         return view
     }
 
@@ -56,12 +49,9 @@ class EgoFragment : Fragment() {
                     else -> false
                 }
             }
-            getOtherSwitches().setEnabled(!uiState.isEgoChecked)
-//            toggleBottomNavVisibility(uiState.isEgoChecked)
-        }
-
-        viewModel.addedItemsOrder.observe(viewLifecycleOwner) { addedItems ->
-            updateBottomNavigationView(addedItems)
+            getOtherSwitches().forEach { switch ->
+                switch.isEnabled = !uiState.isEgoChecked
+            }
         }
 
         binding.switchEgo.setOnCheckedChangeListener { _, isChecked ->
@@ -75,7 +65,7 @@ class EgoFragment : Fragment() {
         }
     }
 
-    private fun getOtherSwitches(): List<SwitchMaterial> {
+    private fun getOtherSwitches(): List<SwitchCompat> {
         return with(binding){
             listOf(
                 switchAddition,
@@ -87,36 +77,7 @@ class EgoFragment : Fragment() {
         }
     }
 
-    private fun updateBottomNavigationView(addedItemsOrder: List<NavigationItem>) {
-        val menu = bottomNavigationView.menu
-        menu.clear()
-
-        val egoItem = NavigationItem.EGO
-        menu.add(ZERO, egoItem.fragmentId, ZERO, "Ego").setIcon(egoItem.iconRes)
-
-        var addedItemCount = ONE
-        var toastShown = false
-
-        addedItemsOrder.forEach { item ->
-            if (addedItemCount < FIVE) {
-                menu.add(ZERO, item.fragmentId, addedItemCount, item.name).setIcon(item.iconRes)
-                addedItemCount++
-            } else if (!toastShown) {
-                Toast.makeText(requireContext(), getString(R.string.limit_five), Toast.LENGTH_SHORT).show()
-                toastShown = true
-            }
-        }
-    }
-
-    private fun toggleBottomNavVisibility(isEgoChecked: Boolean) {
-        if (isEgoChecked) {
-            bottomNavigationView.gone()
-        } else {
-            bottomNavigationView.visible()
-        }
-    }
-
-    private fun setSwitchColors(isChecked: Boolean, switch: SwitchMaterial) {
+    private fun setSwitchColors(isChecked: Boolean, switch: SwitchCompat) {
         val thumbColor = if (isChecked) R.color.green else R.color.black
         val trackColor = if (isChecked) R.color.green else R.color.black
 
