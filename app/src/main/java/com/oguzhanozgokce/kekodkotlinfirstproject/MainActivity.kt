@@ -20,7 +20,7 @@ import com.oguzhanozgokce.kekodkotlinfirstproject.ui.ego.NavigationItem
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-     val viewModel: EgoViewModel by viewModels()
+    private val viewModel: EgoViewModel by viewModels()
 
     companion object {
         const val ZERO = 0
