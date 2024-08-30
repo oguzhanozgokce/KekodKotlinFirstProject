@@ -79,7 +79,6 @@ class DivisionFragment : Fragment(), CardSetup {
         return a / b
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

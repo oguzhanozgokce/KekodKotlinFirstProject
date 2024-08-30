@@ -49,7 +49,6 @@ class AdditionFragment : Fragment(), CardSetup {
         }
     }
 
-
     override fun calculateResult(firstNumberEditText: EditText, secondNumberEditText: EditText, resultTextView: TextView) {
         val firstNumber = firstNumberEditText.text.toString().toIntOrNull() ?: 0
         val secondNumber = secondNumberEditText.text.toString().toIntOrNull() ?: 0
@@ -60,7 +59,6 @@ class AdditionFragment : Fragment(), CardSetup {
     private fun add(a: Int, b: Int): Int {
         return a + b
     }
-
 
     override fun onDestroy() {
         super.onDestroy()
