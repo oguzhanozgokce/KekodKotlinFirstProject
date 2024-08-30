@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switch_addition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -44,7 +44,7 @@
         app:layout_constraintStart_toEndOf="@id/layout_addition"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switch_subtraction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -69,7 +69,7 @@
         app:layout_constraintStart_toEndOf="@id/layout_subtraction"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switch_multiplication"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -94,7 +94,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_addition">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switch_division"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -118,7 +118,7 @@
         app:layout_constraintStart_toEndOf="@id/layout_division"
         app:layout_constraintTop_toBottomOf="@id/layout_subtraction">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switch_modulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -143,7 +143,7 @@
         app:layout_constraintStart_toEndOf="@id/layout_modulo"
         app:layout_constraintTop_toBottomOf="@id/layout_multiplication">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switch_ego"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

@@ -30,7 +30,6 @@ class EgoFragment : Fragment() {
 
         viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
             binding.switchEgo.isChecked = uiState.isEgoChecked
-            setSwitchColors(uiState.isEgoChecked, binding.switchEgo)
             getOtherSwitches().forEachIndexed { index, switch ->
                 switch.isChecked = when (index) {
                     0 -> uiState.isAdditionChecked
@@ -67,14 +66,6 @@ class EgoFragment : Fragment() {
                 switchModulo,
             )
         }
-    }
-
-    private fun setSwitchColors(isChecked: Boolean, switch: SwitchCompat) {
-        val thumbColor = if (isChecked) R.color.green else R.color.black
-        val trackColor = if (isChecked) R.color.green else R.color.black
-
-        switch.thumbTintList = ContextCompat.getColorStateList(requireContext(), thumbColor)
-        switch.trackTintList = ContextCompat.getColorStateList(requireContext(), trackColor)
     }
 
     override fun onDestroyView() {
